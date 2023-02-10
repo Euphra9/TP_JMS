@@ -33,16 +33,16 @@ public class JmsTopic {
 
             // Consumer1 subscribes to customerTopic
             MessageConsumer consumer1 = session.createConsumer(topic);
-            consumer1.setMessageListener(new ConsumerMessageListener("Consumer1"));
+            consumer1.setMessageListener(new ConsumerMessageListener("Mr BOUZITOUNA"));
 
             // Consumer2 subscribes to customerTopic
             MessageConsumer consumer2 = session.createConsumer(topic);
-            consumer2.setMessageListener(new ConsumerMessageListener("Consumer2"));
+            consumer2.setMessageListener(new ConsumerMessageListener("Mr EUTAMENE"));
 
             connection.start();
 
             // Publish
-            String payload = "Important Task";
+            String payload = "Nous avons prevu de rendre les TPs au plus tard le vendredi 10 février";
             Message msg = session.createTextMessage(payload);
             MessageProducer producer = session.createProducer(topic);
             System.out.println("Message envoyé : '" + payload + "'");

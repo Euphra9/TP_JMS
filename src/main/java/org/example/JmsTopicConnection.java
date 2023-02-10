@@ -59,19 +59,19 @@ public class JmsTopicConnection {
             // --- Consommateur 1 qui s'inscrit au customerTopic ---
             MessageConsumer consumer1 = topicConsumerSession.createSubscriber(topic);
             consumer1.setMessageListener(new ConsumerMessageListener(
-                    "Consommateur 1"));
+                    "Meryem"));
 
             // --- Consommateur 2 qui s'inscrit au customerTopic ---
             MessageConsumer consumer2 = topicConsumerSession.createSubscriber(topic);
             consumer2.setMessageListener(new ConsumerMessageListener(
-                    "Consommateur 2"));
+                    "Ratiba"));
 
             topicConnection.start();
 
             // Publication
             TopicSession topicPublisherSession = topicConnection.createTopicSession(
                     false, Session.AUTO_ACKNOWLEDGE);
-            String payload = "Tâche importante";
+            String payload = "Malak souhaite vous ajouter dans un groupe";
             Message msg = topicPublisherSession.createTextMessage(payload);
             TopicPublisher publisher = topicPublisherSession.createPublisher(topic);
             System.out.println("Message envoyé : '" + payload + "'");
