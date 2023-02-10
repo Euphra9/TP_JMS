@@ -23,36 +23,37 @@ public class JmsDurableSubscriber{
         broker.start();
         Connection connection = null;
         try {
-            // Producer
+            // Producteur
             ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
                     "tcp://localhost:61616");
             connection = connectionFactory.createConnection();
-            connection.setClientID("DurabilityTest");
+            connection.setClientID("Test de durabilité");
             Session session = connection.createSession(false,
                     Session.AUTO_ACKNOWLEDGE);
             Topic topic = session.createTopic("customerTopic");
 
-            // Publish
-            String payload = "Important Task";
+            // Publication
+            String payload = "Il faut rendre le TP de JMS au plus tard le vendredi 10 février";
             TextMessage msg = session.createTextMessage(payload);
             MessageProducer publisher = session.createProducer(topic);
-            System.out.println("Sending text '" + payload + "'");
+            System.out.println("Message envoyé : '" + payload + "'");
+            //publication du message
             publisher.send(msg, javax.jms.DeliveryMode.PERSISTENT, javax.jms.Message.DEFAULT_PRIORITY, Message.DEFAULT_TIME_TO_LIVE);
 
-            // Consumer1 subscribes to customerTopic
+            // Consommateur 1 s'abonne au sujet
             MessageConsumer consumer1 = session.createDurableSubscriber(topic, "consumer1", "", false);
 
-            // Consumer2 subscribes to customerTopic
+            // Consommateur 2 s'abonne au sujet
             MessageConsumer consumer2 = session.createDurableSubscriber(topic, "consumer2", "", false);
 
             connection.start();
 
             msg = (TextMessage) consumer1.receive();
-            System.out.println("Consumer1 receives " + msg.getText());
+            System.out.println("Euphraïm reçoit le message ' " + msg.getText()+"'");
 
 
             msg = (TextMessage) consumer2.receive();
-            System.out.println("Consumer2 receives " + msg.getText());
+            System.out.println("Malak reçoit le message '" + msg.getText()+"'");
 
             session.close();
         } finally {

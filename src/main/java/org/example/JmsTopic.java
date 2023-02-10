@@ -45,7 +45,7 @@ public class JmsTopic {
             String payload = "Important Task";
             Message msg = session.createTextMessage(payload);
             MessageProducer producer = session.createProducer(topic);
-            System.out.println("Sending text '" + payload + "'");
+            System.out.println("Message envoyé : '" + payload + "'");
             producer.send(msg);
 
             Thread.sleep(3000);
